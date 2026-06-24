@@ -33,7 +33,9 @@ Use this skill when creating or improving a Hermes Agent profile distribution.
 8. For deterministic starter creation, edit a params YAML file and run `python3 scripts/generate_profile.py --params <params.yaml> --output <target-dir>`.
 9. Run `python3 scripts/validate_profile.py .`.
 10. Test local install with `hermes profile install . --name <smoke-name> --yes` when Hermes is available.
-11. Update README with install and usage instructions.
+11. Update README with install, usage, validation, and catalog contribution instructions.
+12. If the profile should be discoverable in profile catalogs, create small catalog-native entries using `templates/catalog/`. Match the target repo format instead of pasting a generic link.
+13. Before any public push, scan staged files, latest commit metadata, PR body text, and added diff lines for private identity strings, secrets, and project-specific style constraints.
 
 ## Quality checklist
 
@@ -42,7 +44,10 @@ Use this skill when creating or improving a Hermes Agent profile distribution.
 - Skills are procedural and reusable.
 - No runtime state is committed.
 - Validation passes.
-- The README explains install, usage, and risks.
+- Generator output validates from a temporary directory.
+- Local `hermes profile install . --name <smoke-name> --yes` succeeds when Hermes is available.
+- The README explains install, usage, validation, and risks.
+- Public repository topics cover framework, domain, and installability keywords.
 
 ## Pitfalls
 
@@ -51,3 +56,5 @@ Use this skill when creating or improving a Hermes Agent profile distribution.
 - Adding MCP servers that require private local paths.
 - Forgetting to bump `distribution.yaml` version.
 - Claiming capabilities that the profile config does not enable.
+- Using curly-brace template tokens outside `templates/`; validators treat those as unresolved. Use `[question]` style markers in skill references.
+- Opening profile catalog PRs that only add a link. Add a catalog-native profile file or manifest entry when the target repo expects one.

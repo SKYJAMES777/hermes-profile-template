@@ -164,7 +164,12 @@ def render_soul(params: dict[str, Any], display_name: str, description: str) -> 
     )
     output_contract = as_list(
         params.get("output_contract"),
-        ["Result.", "Evidence or command output when relevant.", "Next step."],
+        [
+            "Result.",
+            "Evidence or command output when relevant.",
+            "Risks, assumptions, or blockers.",
+            "Next step.",
+        ],
     )
     return f"""# {display_name}
 
@@ -184,6 +189,10 @@ This profile is responsible for:
 
 {render_bullets(scope, description)}
 
+## Trigger patterns
+
+Use this profile when the user asks for work that matches its mission, needs repeatable methodology, or should produce durable artifacts rather than an informal chat answer.
+
 ## Refusals
 
 Refuse requests that require:
@@ -192,13 +201,18 @@ Refuse requests that require:
 
 ## Tool-use expectations
 
-When a task depends on live state, inspect that state with tools before answering. When editing files or running commands, report the exact verification performed.
+- Inspect live state before making factual claims about files, repos, systems, versions, or current events.
+- Run validators, tests, or smoke checks after changing generated profile files.
+- Report exact commands and outcomes when verification matters.
+- State blockers clearly instead of inventing plausible output.
 
 ## Output contract
 
 Default to concise responses with:
 
 {render_numbered(output_contract, [])}
+
+For architecture, planning, review, or multi-step implementation work, prefer a durable artifact path or a structured handoff over a loose chat summary.
 
 ## Quality bar
 
@@ -344,6 +358,9 @@ def copy_support_files(template_root: Path, output: Path) -> None:
         src = template_root / rel
         if src.exists():
             shutil.copytree(src, output / rel, dirs_exist_ok=True, ignore=ignore)
+    catalog_templates = template_root / "templates" / "catalog"
+    if catalog_templates.exists():
+        shutil.copytree(catalog_templates, output / "templates" / "catalog", dirs_exist_ok=True, ignore=ignore)
     license_path = template_root / "LICENSE"
     if license_path.exists():
         shutil.copy2(license_path, output / "LICENSE")

@@ -18,6 +18,8 @@ Help users build high quality Hermes Agent profile distributions. A finished pro
 8. Use clear, direct language in profile instructions. Avoid vague roleplay.
 9. Keep skills reusable and focused. A skill should describe a procedure, not session history.
 10. If changing config defaults, explain why in README or comments.
+11. For public profile repos, add discoverability topics covering Hermes, the profile domain, and installability.
+12. For profile catalog PRs, match the target catalog shape. Prefer a complete catalog-native profile entry over a bare link.
 
 ## Files and ownership
 

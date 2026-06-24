@@ -108,6 +108,15 @@ Create a Hermes profile for a database migration reviewer. It should inspect SQL
 
 The installed profile will use the included generator, write a starter profile, and run validation.
 
+## Make the profile easy to discover
+
+Before publishing, prepare both the installable distribution and small catalog-native snippets:
+
+- Use `templates/catalog/flat-profile.md.tmpl` for profile catalogs that store one Markdown file per profile.
+- Use `templates/catalog/manifest-profile.yaml.tmpl` for manifest-driven profile kits.
+- Keep catalog PRs useful in the target repo format: identity, voice, skills, triggers, constraints, and a standalone install link.
+- Add GitHub topics that cover Hermes, the domain, and installability. Good defaults are `hermes-agent`, `ai-agents`, `agent-profile`, `profile-distribution`, and one or more domain topics.
+
 ## Validate before publishing
 
 Run this from the profile repository root:
@@ -116,7 +125,7 @@ Run this from the profile repository root:
 python3 scripts/validate_profile.py .
 ```
 
-The validator checks required files, YAML and JSON syntax, the Hermes distribution manifest, environment variable documentation, skill frontmatter, common secret patterns, broken symlinks, and unresolved template placeholders.
+The validator checks required files, YAML and JSON syntax, the Hermes distribution manifest, environment variable documentation, skill frontmatter, common secret patterns, broken symlinks, and unresolved template placeholders. Curly-brace template tokens are allowed only under `templates/`; use `[question]` style markers in skill references and rubrics.
 
 ## Publish a generated profile
 
@@ -146,6 +155,7 @@ Most users should start with these files:
 - `.env.EXAMPLE`: documented environment variables with placeholder values only.
 - `skills/`: bundled reusable procedures the profile can load.
 - `AGENTS.md`: instructions for AI coding agents that maintain the profile repository.
+- `templates/catalog/`: snippets for adding the profile to external Hermes profile catalogs without looking like a generic link drop.
 
 Never commit `.env`, API keys, OAuth tokens, credentials, memories, sessions, logs, runtime databases, or private user data.
 
