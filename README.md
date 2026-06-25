@@ -123,9 +123,11 @@ Run this from the profile repository root:
 
 ```bash
 python3 scripts/validate_profile.py .
+scripts/smoke_install.sh
 ```
 
-The validator checks required files, YAML and JSON syntax, the Hermes distribution manifest, environment variable documentation, skill frontmatter, common secret patterns, broken symlinks, and unresolved template placeholders. Curly-brace template tokens are allowed only under `templates/`; use `[question]` style markers in skill references and rubrics.
+The smoke script validates the repository, compiles Python scripts without writing bytecode, generates and validates a profile from `templates/profile.params.yaml`, and installs into a temporary `HERMES_HOME` when the Hermes CLI is available.
+
 
 ## Release discipline
 
