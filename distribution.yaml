@@ -24,4 +24,5 @@ distribution_owned:
   - CHANGELOG.md
   - CONTRIBUTING.md
   - SECURITY.md
+  - github-repo-metadata.yaml
   - .env.EXAMPLE

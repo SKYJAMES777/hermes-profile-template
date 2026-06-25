@@ -36,6 +36,13 @@ def main() -> int:
         },
         "toolsets": ["file", "terminal", "skills", "web", "session_search", "clarify"],
         "env_requires": [],
+        "github_topics": [
+            "hermes-agent",
+            "ai-agents",
+            "agent-profile",
+            "profile-distribution",
+            "developer-tools",
+        ],
     }
 
     root = Path(__file__).resolve().parents[1]

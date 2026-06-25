@@ -51,3 +51,10 @@ output_contract:
   - Files changed.
   - Verification command and exact outcome.
   - Remaining risks or manual steps.
+
+github_topics:
+  - hermes-agent
+  - ai-agents
+  - agent-profile
+  - profile-distribution
+  - developer-tools

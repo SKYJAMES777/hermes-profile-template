@@ -1,0 +1,18 @@
+description: AI-friendly GitHub template for building installable Hermes Agent profile distributions with profile manifests, validation scripts, CI, docs, and reproducible release checks.
+homepage: https://github.com/codegraphtheory/hermes-profile-template
+topics:
+  - agent-profile
+  - agent-skills
+  - ai-agents
+  - automation
+  - cli
+  - developer-tools
+  - github-template
+  - hermes-agent
+  - profile-distribution
+  - profile-template
+  - python
+  - starter-kit
+  - template
+  - validation
+  - workflow-automation

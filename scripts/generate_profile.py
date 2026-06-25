@@ -91,6 +91,7 @@ def render_distribution(params: dict[str, Any], slug: str, description: str) -> 
                 "CHANGELOG.md",
                 "CONTRIBUTING.md",
                 "SECURITY.md",
+                "github-repo-metadata.yaml",
                 ".env.EXAMPLE",
             ],
         }
@@ -313,6 +314,25 @@ Do not commit `.env`, credentials, memories, sessions, logs, runtime databases, 
 """
 
 
+def render_github_metadata(slug: str, description: str, params: dict[str, Any]) -> str:
+    topics = as_list(
+        params.get("github_topics"),
+        [
+            "hermes-agent",
+            "ai-agents",
+            "agent-profile",
+            "profile-distribution",
+            "developer-tools",
+        ],
+    )
+    data = {
+        "description": description,
+        "homepage": str(params.get("github_homepage") or ""),
+        "topics": topics[:20],
+    }
+    return yaml.safe_dump(data, sort_keys=False, default_flow_style=False)
+
+
 def render_template_source_file(params: dict[str, Any]) -> str | None:
     template_source = params.get("template_source")
     if not template_source:
@@ -359,6 +379,13 @@ def render_params_example(slug: str, display_name: str, description: str, author
             "Fabricated facts, links, audits, or affiliations.",
         ],
         "output_contract": ["Result.", "Evidence or command output when relevant.", "Next step."],
+        "github_topics": [
+            "hermes-agent",
+            "ai-agents",
+            "agent-profile",
+            "profile-distribution",
+            "developer-tools",
+        ],
     }
     return yaml.safe_dump(data, sort_keys=False, default_flow_style=False)
 
@@ -408,6 +435,7 @@ def generate(params: dict[str, Any], output: Path, force: bool, template_root: P
     write(output / "config.yaml", render_config(params))
     write(output / ".env.EXAMPLE", render_env_example(params))
     write(output / "mcp.json", "{\n  \"mcpServers\": {}\n}")
+    write(output / "github-repo-metadata.yaml", render_github_metadata(slug, description, params))
     write(output / "templates" / "profile.params.yaml", render_params_example(slug, display_name, description, author))
     copy_support_files(template_root, output)
     template_source_file = render_template_source_file(params)

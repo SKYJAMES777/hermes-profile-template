@@ -116,6 +116,19 @@ Before publishing, prepare both the installable distribution and small catalog-n
 - Use `templates/catalog/manifest-profile.yaml.tmpl` for manifest-driven profile kits.
 - Keep catalog PRs useful in the target repo format: identity, voice, skills, triggers, constraints, and a standalone install link.
 - Add GitHub topics that cover Hermes, the domain, and installability. Good defaults are `hermes-agent`, `ai-agents`, `agent-profile`, `profile-distribution`, and one or more domain topics.
+- Keep `github-repo-metadata.yaml` current so descriptions, homepage, and topics can be applied repeatably.
+
+Preview metadata changes:
+
+```bash
+python3 scripts/apply_github_metadata.py --repo YOUR_ORG/YOUR_PROFILE_REPO
+```
+
+Apply metadata after reviewing the dry run:
+
+```bash
+python3 scripts/apply_github_metadata.py --repo YOUR_ORG/YOUR_PROFILE_REPO --apply
+```
 
 ## Validate before publishing
 
@@ -173,6 +186,7 @@ Most users should start with these files:
 - `AGENTS.md`: instructions for AI coding agents that maintain the profile repository.
 - `CONTRIBUTING.md`: contributor workflow, profile quality bar, and PR checklist.
 - `SECURITY.md`: vulnerability reporting and secret-handling policy.
+- `github-repo-metadata.yaml`: repeatable GitHub description, homepage, and topic metadata.
 - `templates/catalog/`: snippets for adding the profile to external Hermes profile catalogs without looking like a generic link drop.
 
 Never commit `.env`, API keys, OAuth tokens, credentials, memories, sessions, logs, runtime databases, or private user data.
