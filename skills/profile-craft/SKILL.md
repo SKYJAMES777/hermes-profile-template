@@ -11,7 +11,7 @@ metadata:
 
 # Profile Craft
 
-Use this skill when creating or improving a Hermes Agent profile distribution.
+Use this skill when creating or improving a Hermes Agent profile distribution. The default deliverable is a repository directory that can be validated and installed with `hermes profile install`, not just a written plan.
 
 ## Inputs
 
@@ -22,6 +22,20 @@ Use this skill when creating or improving a Hermes Agent profile distribution.
 - Expected output style.
 
 ## Workflow
+
+### Prompt-to-repo workflow
+
+When a user asks for a new profile from a prompt:
+
+1. Ask only for missing essentials: profile name, mission, target user, required integrations, data sensitivity, risk level, and output style.
+2. If enough information is present, proceed with sensible defaults.
+3. Write a params YAML file using `templates/profile.params.yaml` as the schema reference.
+4. Run `python3 scripts/generate_profile.py --params <params.yaml> --output <target-dir>`.
+5. Run `python3 <target-dir>/scripts/validate_profile.py <target-dir>`.
+6. If Hermes is available, run `hermes profile install <target-dir> --name <smoke-name> --yes --force`.
+7. Report generated repo path, validation output, smoke-install output if run, and next publish command.
+
+### Profile design workflow
 
 1. Define the profile mission in one sentence.
 2. Define boundaries: what the profile does, does not do, and refuses.

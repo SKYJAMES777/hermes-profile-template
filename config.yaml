@@ -1,6 +1,6 @@
 model:
-  default: anthropic/claude-sonnet-4
   provider: openrouter
+  model: anthropic/claude-sonnet-4
 toolsets:
   - file
   - terminal

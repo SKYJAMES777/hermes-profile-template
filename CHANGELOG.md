@@ -2,6 +2,16 @@
 
 All notable changes to this Hermes profile distribution are documented here.
 
+## 0.4.0
+
+- Rebuilt the README around the literal prompt-to-installable-profile-repo workflow.
+- Clarified every usage path so it ends in validation and `hermes profile install`.
+- Updated the installed profile instructions to require repository creation, validation, and optional smoke install when users ask for a new profile.
+- Updated the bundled `profile-craft` skill with a prompt-to-repo workflow.
+- Added the interactive profile-builder demo script to the documented usage path.
+- Fixed generated `config.yaml` model keys so installed template and generated profiles resolve models correctly in Hermes.
+- Fixed prompt-to-repo generation from an installed profile so seeded runtime skills are not copied into generated repos.
+
 ## 0.3.0
 
 - Clarified that this repository is a developer authoring system built on top of Hermes Agent's native profile distribution runtime.

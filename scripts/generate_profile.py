@@ -132,8 +132,8 @@ def render_config(params: dict[str, Any]) -> str:
     return yaml.safe_dump(
         {
             "model": {
-                "default": str(params.get("model_default") or "anthropic/claude-sonnet-4"),
                 "provider": str(params.get("model_provider") or "openrouter"),
+                "model": str(params.get("model_default") or "anthropic/claude-sonnet-4"),
             },
             "toolsets": toolsets,
             "agent": {"max_turns": max_turns, "tool_use_enforcement": True},
@@ -399,10 +399,22 @@ def render_params_example(slug: str, display_name: str, description: str, author
 
 def copy_support_files(template_root: Path, output: Path) -> None:
     ignore = shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store")
-    for rel in ["scripts", "skills", ".github"]:
+    for rel in ["scripts", ".github"]:
         src = template_root / rel
         if src.exists():
             shutil.copytree(src, output / rel, dirs_exist_ok=True, ignore=ignore)
+    # When this repository is installed as a Hermes profile, Hermes may seed the
+    # profile with many bundled user skills. Do not copy that entire runtime
+    # skills directory into generated repos. Only copy this template's own
+    # authoring skill as a starter example.
+    profile_craft = template_root / "skills" / "profile-craft"
+    if profile_craft.exists():
+        shutil.copytree(
+            profile_craft,
+            output / "skills" / "profile-craft",
+            dirs_exist_ok=True,
+            ignore=ignore,
+        )
     for rel in ["LICENSE", "CHANGELOG.md", "CONTRIBUTING.md", "SECURITY.md", "requirements.txt", "Makefile"]:
         src_file = template_root / rel
         if src_file.exists():
